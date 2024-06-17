@@ -1,37 +1,103 @@
-#video-grid img {
-    border: 2px solid #e9e9e9;
-}
-
 .video-grid {
     display: grid;
     grid-template-columns: repeat(3, 275px);
     grid-gap: 10px;
 }
 
-.video-grid .video-wrapper {
+.video-grid .video-wrappers {
     position: relative;
-    border: 5px solid #e9e9e9;
-    height: 160px;
     cursor: pointer;
 }
 
-.video-grid img {
+#video-grid img {
+    border: 5px solid #e9e9e9;
     width: 100%;
-    height: 100%;
 }
 
 .video-grid .play-button {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 20px);
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    background: url('https://www.pngall.com/wp-content/uploads/5/Red-Play-Button.png') no-repeat center center;
+    width: 70px;
+    height: 70px;
+    background: url(https://cdn.pixabay.com/photo/2021/06/25/04/20/youtube-6362801_640.png) no-repeat center center;
     background-size: contain;
     display: none;
+  	z-index: 99;
 }
 
 .video-grid .video-wrappers:hover .play-button {
     display: block;
+}
+
+.video-grid .video-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    line-height: 1.2;
+    margin: 10px 0 15px;
+}
+
+.video-grid .video-title:hover {
+  text-decoration: underline;
+}
+
+#video-grid .video-wrappers:after {
+  content:'';
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:160px;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 55;
+}
+
+button.less-videos-button,
+button.more-videos-button {
+    margin: 15px auto 10px;
+    display: block;
+    font-weight: 600;
+}
+
+button.more-videos-button:hover {
+    background: #ff8800;
+}
+
+@media screen and (max-width:1199px) and (min-width:992px){
+    .video-grid {
+      	display: grid;
+        grid-template-columns: repeat(3, 220px);
+        grid-gap: 10px;
+    }
+
+    #video-grid .video-wrappers:after {
+        height: 128px;
+    }
+}
+
+@media screen and (max-width:991px) and (min-width:768px){
+  .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 50%);
+      grid-gap: 10px;
+  }
+  
+  #video-grid .video-wrappers:after {
+    height: 134px;
+  }
+}
+
+@media screen and (max-width:767px) {
+  .video-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 100%);
+      grid-gap: 10px;
+  }
+  
+  #video-grid .video-wrappers:after {
+      height: calc(100% - 45px);
+  }
+  
 }
