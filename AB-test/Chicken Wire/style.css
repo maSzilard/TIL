@@ -1,0 +1,130 @@
+.fixed-buy-bar {
+    background: #f1f1f1;
+    display: none;
+}
+
+.es-sticky .fixed-buy-bar {
+    display: block;
+}
+
+.fixed-buy-bar .hidden-xs.container {
+    display: flex;
+    align-items: center;
+}
+
+.col-sm-5.col-md-4.col-buy-bar-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.col-buy-bar-left a {
+    background: #3e94e0;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.col-buy-bar-left span {
+    color: #fff;
+}
+
+.fixed-buy-bar a.btn-smb-green {
+    background: #ff8800;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 10px 5px 10px 15px;
+}
+
+.fixed-buy-bar a.btn-smb-green span {
+    color: #ffffff;
+}
+
+.fixed-buy-bar p.price-section {
+    margin: 0;
+    color: #222;
+    font-weight: 700;
+}
+
+.fixed-buy-bar p.price-section * {
+    color: #222;
+}
+
+.page-description-bottom table tr:first-child{
+        background: #03bb49 !important;
+    color: #ffffff;
+}
+
+ .page-description-bottom table tr:nth-child(odd){
+     background: #f1f1f1;
+ }
+ 
+.pa_height > div
+.pa_length > div
+.pa_hole-size > div
+.gauge-wire-diameter > div {
+    text-align: center;
+    width: 100%;
+    max-width: 96px;
+    padding: 12px 10px;
+    border: 1px solid #E5E5E5;
+    border-radius: 5px;
+    color: #333333;
+    font-size: 16px;
+    line-height: 27px;
+    font-weight: 600;
+    cursor: pointer;
+    background: white;
+     
+ }
+ 
+ .hide-box {
+    display: none !important;
+ }
+ 
+ .info-wrapper > div {
+    position: absolute;
+    background: #EEFEEE;
+    z-index: 1;
+    border-radius: 7px;
+    padding: 20px;
+    border: 1px solid #E5E5E5;
+    width: 100vw;
+    max-width: 418px;
+    left: -39px;
+    box-shadow: 0px 4px 20px 0px #1A1A1A1A;
+}
+
+.info-wrapper span div {
+    left: -50%;
+}
+
+span.info-wrapper.cable-ties-info > div {
+    left: 0;
+    transform: translateX(-25%);
+}
+
+span.info-wrapper.tensioning-wire-info > div {
+    transform: translateX(-25%);
+    left: 0;
+}
+
+.info-box-close {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+    .woocommerce #reviews #comments ol.commentlist {
+        margin-left: 0; 
+    }
+}
+
+.header-navigation {
+    min-height: auto;
+}
+
+.header-navigation.es-sticky>.container {
+    display: none;
+}
