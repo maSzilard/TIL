@@ -491,4 +491,48 @@ document.addEventListener('DOMContentLoaded', function () {
     $(el)[0].options[0].text = 'Select';
   });
 
+  const downloadBlock = $('.download-block');
+  downloadBlock.addClass('hide-more');
+  downloadBlock.after(`<button id="show-more-button">Show More</button>`);
+  let showMoreBbutton = $('#show-more-button');
+
+  // Set initial button text
+  showMoreBbutton.text('Show More');
+
+  // Toggle functionality
+  showMoreBbutton.on('click', function() {
+      if (downloadBlock.hasClass('hide-more')) {
+          downloadBlock.removeClass('hide-more');
+          $(this).text('Show Less');
+      } else {
+          downloadBlock.addClass('hide-more');
+          $(this).text('Show More');
+      }
+  });
+  
+  const commentList = $('#comments .commentlist');
+  const hiddenComments = commentList.children('li:nth-child(n+4)');
+
+  // Initially set the hidden class
+  hiddenComments.addClass('hide-comment');
+
+    // Add the Show More button after the comment list
+    commentList.after('<button id="show-more-comments">Show More</button>');
+    let showMoreButton = $('#show-more-comments');
+
+    // Toggle functionality
+    showMoreButton.on('click', function() {
+        if (hiddenComments.hasClass('hide-comment')) {
+            hiddenComments.removeClass('hide-comment');
+            $(this).text('Show Less');
+        } else {
+            hiddenComments.addClass('hide-comment');
+            $(this).text('Show More');
+            // jump up to #reviews
+            $('html, body').animate({
+                scrollTop: $('#smb-rating').offset().top
+            }, 200);
+        }
+    });
+
 });
