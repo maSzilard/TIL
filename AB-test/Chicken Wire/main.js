@@ -165,7 +165,7 @@ function createHeaderDiv(className, text, content) {
       <h5>${text} 
         <span style="display:inline-block; position:relative;" class="info-wrapper ${className}-info">
           <img width="15" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/octicon_info-24.svg">
-          <div class="hide-box">
+          <div class="${className}-div hide-box">
             <span class="info-box-close">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M6 6L1 1M6 6L11 11M6 6L11 1M6 6L1 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </svg>
             </span>
@@ -301,12 +301,21 @@ document.addEventListener('DOMContentLoaded', function () {
     </div>
     <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/wire-dia-chicken-wire-768x768.jpg" width="200px" height="200px">`;
 
+    const grade = `<div class="grade-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
+    <div style="text-align:left;">
+        <h6>Grade</h6>
+      </div>
+    </div>
+    <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/grade-table.png" width="200px" height="200px">`;
+
 
     // Create Header for select divs
     createHeaderDiv("pa_height", "Height", heightContent);
     createHeaderDiv("pa_length", "Length", lenghtContent);
     createHeaderDiv("pa_hole-size", "Hole Size", holeSizeContent);
     createHeaderDiv("gauge-wire-diameter", "Wire Diameter", wireDiameter);
+    createHeaderDiv("pa_grade", "Grade", grade);
+    
 
     $("#addToCart .variations_form.cart .quantity .input-text").change(() => {
       updateTPostQty();
@@ -316,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
       updateThisProduct();
     });
 
-    const ids = ['pa_height', 'pa_length', 'pa_hole-size', 'gauge-wire-diameter'];
+    const ids = ['pa_height', 'pa_length', 'pa_hole-size', 'gauge-wire-diameter', 'pa_grade'];
 
     ids.forEach(id => {
       $(`#addToCart table #${id} option`).each(function (index, el) {
@@ -331,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
     clickToUpdate('pa_length');
     clickToUpdate('pa_hole-size');
     clickToUpdate('gauge-wire-diameter');
+    clickToUpdate('pa_grade');
 
     // add text
     $('#addToCart .woocommerce-variation-add-to-cart .quantity').before('<h5>Quantity</h5>');
@@ -339,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
     $('#addToCart .variations_form.cart select').change(function () {
       setTimeout(() => {
 
-        $('#addToCart tbody select#pa_length, #addToCart tbody select#pa_height, #addToCart tbody select#pa_hole-size, #addToCart tbody select#gauge-wire-diameter').each(function (index, el) {
+        $('#addToCart tbody select#pa_length, #addToCart tbody select#pa_height, #addToCart tbody select#pa_hole-size, #addToCart tbody select#gauge-wire-diameter, #addToCart tbody select#pa_grade').each(function (index, el) {
           if ($(this).val().length != 0) {
             $(this).addClass('active')
           } else {
@@ -352,6 +362,7 @@ document.addEventListener('DOMContentLoaded', function () {
         applyStyles('pa_length');
         applyStyles('pa_hole-size');
         applyStyles('gauge-wire-diameter');
+        applyStyles('pa_grade');
     
         updateTPostQty();
         updatePegsQty();
@@ -448,6 +459,7 @@ document.addEventListener('DOMContentLoaded', function () {
   $('label[for="pa_height"]').after(createInfoWrapper('height-info'));
   $('label[for="pa_hole-size"]').after(createInfoWrapper('hole-size-info'));
   $('label[for="gauge-wire-diameter"]').after(createInfoWrapper('gauge-wire-diameter-info'));
+  $('label[for="pa_grade"]').after(createInfoWrapper('pa_grade-info'));
 
   // click on info icon
   $('.info-wrapper > img').click(function () {
