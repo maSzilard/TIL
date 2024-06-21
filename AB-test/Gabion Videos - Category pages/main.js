@@ -2,8 +2,6 @@ if ($('#full-product-details ul').hasClass('gallery-photo-list')) {
     $('#full-product-details ul').after('<h2>Videos</h2> <div id="video-grid" class="video-grid"></div>');
     const videos = [
         ['How to assemble a gabion', 'dnGKpb3vTN4'],
-        ['How to use helicals', 'UuBdKghZbGE'],
-        ['How to use tying wire', 'QgbE9_i6oGU'],
         ['How to use corner ties', 'UuBdKghZbGE'],
         ['How to use stone separating panels', 'b_rbPfSokqI'],
         ['Gabion deflection test', 'HtMjg0u6K1s'],
