@@ -165,7 +165,7 @@ function createHeaderDiv(className, text, content) {
       <h5>${text} 
         <span style="display:inline-block; position:relative;" class="info-wrapper ${className}-info">
           <img width="15" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/octicon_info-24.svg">
-          <div class="${className}-div hide-box">
+          <div class="hide-box">
             <span class="info-box-close">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M6 6L1 1M6 6L11 11M6 6L11 1M6 6L1 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </svg>
             </span>
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <h6>Grade</h6>
       </div>
     </div>
-    <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/grade-table.png" width="200px" height="200px">`;
+    <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/grade-table2.png" width="200px" height="200px">`;
 
 
     // Create Header for select divs
