@@ -23,6 +23,7 @@ function updateTPostQty() {
     const itemProduct = $(`.woobt-item-product[data-key="${key}"]`);
     itemProduct.find('input[type="number"]').val(qty);
     itemProduct.attr('data-qty', qty);
+    console.log(key, qty);
     if (itemProduct.hasClass('woobt-hide')) {
       itemProduct.find('.woobt-choose input').click();
       itemProduct.show();
@@ -528,23 +529,23 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initially set the hidden class
   hiddenComments.addClass('hide-comment');
 
-    // Add the Show More button after the comment list
-    commentList.after('<button id="show-more-comments">Show More</button>');
-    let showMoreButton = $('#show-more-comments');
+  // Add the Show More button after the comment list
+  commentList.after('<button id="show-more-comments">Show More</button>');
+  let showMoreButton = $('#show-more-comments');
 
-    // Toggle functionality
-    showMoreButton.on('click', function() {
-        if (hiddenComments.hasClass('hide-comment')) {
-            hiddenComments.removeClass('hide-comment');
-            $(this).text('Show Less');
-        } else {
-            hiddenComments.addClass('hide-comment');
-            $(this).text('Show More');
-            // jump up to #reviews
-            $('html, body').animate({
-                scrollTop: $('#smb-rating').offset().top
-            }, 200);
-        }
-    });
+  // Toggle functionality
+  showMoreButton.on('click', function() {
+      if (hiddenComments.hasClass('hide-comment')) {
+          hiddenComments.removeClass('hide-comment');
+          $(this).text('Show Less');
+      } else {
+          hiddenComments.addClass('hide-comment');
+          $(this).text('Show More');
+          // jump up to #reviews
+          $('html, body').animate({
+              scrollTop: $('#smb-rating').offset().top
+          }, 200);
+      }
+  });
 
 });
