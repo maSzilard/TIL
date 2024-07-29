@@ -18,6 +18,8 @@ $('.hidden-mobile-menu .hidden-md.hidden-lg').text('Menu');
 $('.hidden-mobile-store').removeClass('col-xs-3 col-sm-3').addClass('col-xs-2 col-sm-1 col-md-2');
 $('.hidden-mobile-search').removeClass('col-xs-3 col-sm-3').addClass('col-xs-2 col-sm-1 col-md-2');
 $('.col-md-6.hidden-xs.hidden-sm').removeClass('hidden-sm').addClass('col-sm-6');
+$('.newsearch').remove();
+$('.itcmenu').removeClass('col-xs-3 col-md-3').addClass('col-xs-12 col-md-12');
 $('.header-navigation #menu-vertical-menu-1>li').hover(
   function() {
     $('.header-bottom, .page-heading.page-heading-2, #main-content').addClass('shmenu');
@@ -30,5 +32,3 @@ $('.header-navigation #menu-vertical-menu-1>li').hover(
     $(this).removeClass('menuactive');
   }
 );
-$('.newsearch').remove();
-$('.itcmenu').removeClass('col-xs-3 col-md-3').addClass('col-xs-12 col-md-12');
