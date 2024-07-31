@@ -25,22 +25,33 @@ var $menu = $("#menu-vertical-menu-1");
 var $menuItems = $menu.children('li>a');
 var $mainContent = $('#main-content');
 var $body = $('body');
+
 $menuItems.click(function(event) {
     event.preventDefault();
     
-    $mainContent.addClass('shmenu');
-    $body.addClass('hover-sidebar');
+    var $parent = $(this).parent('li');
     
-    $menuItems.not(this).removeClass('menuactive').find('span').remove();
-    
-    $(this).addClass('menuactive');
-    
-    if (!$(this).children('a').find('.itcarrmove').length) {
-        $(this).children('a').append("<span class='ui-accordion-header-icon ui-icon fa fa-plus itcarrmove'></span>");
+    if ($parent.hasClass('menuactive')) {
+        $parent.removeClass('menuactive');
+        $mainContent.removeClass('shmenu');
+        $body.removeClass('hover-sidebar');
+        $(this).find('.itcarrmove').remove();
+    } else {
+        $mainContent.addClass('shmenu');
+        $body.addClass('hover-sidebar');
+        
+        $menuItems.not(this).parent('li').removeClass('menuactive').find('span').remove();
+        
+        $parent.addClass('menuactive');
+        
+        if (!$(this).find('.itcarrmove').length) {
+            $(this).append("<span class='ui-accordion-header-icon ui-icon fa fa-plus itcarrmove'></span>");
+        }
     }
 });
+
 $menu.mouseleave(function() {
-    $menuItems.removeClass('menuactive');
+    $menuItems.parent('li').removeClass('menuactive');
     $mainContent.removeClass('shmenu');
     $body.removeClass('hover-sidebar');
     $('.itcarrmove').remove();
