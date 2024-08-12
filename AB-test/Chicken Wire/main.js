@@ -1,3 +1,4 @@
+
 const updateInputFieldsQty = (key, qty) => {
   const itemProduct = $(`.woobt-product-together[data-key="${key}"]`);
   itemProduct.find('input[type="number"]').val(qty);
@@ -10,11 +11,11 @@ const updateInputFieldsQty = (key, qty) => {
 };
 
 const alertLowStock = (productName, key) => {
-const alertMessage = `<div class="woobt-alert smb-text" style="display: block; background-color: #ff000020; border-left: 4px solid #FF0000;">
-            Alert: Low Stock!\nThe quantity of **${productName}** available is less than the amount you need.
-           </div>`;
-const itemProduct = $(`.woobt-product-together[data-key="${key}"]`);
-itemProduct.after(alertMessage);
+  const alertMessage = `<div class="woobt-alert smb-text" style="display: block; background-color: #ff000020; border-left: 4px solid #FF0000;">
+              Alert: Low Stock!\nThe quantity of **${productName}** available is less than the amount you need.
+              </div>`;
+  const itemProduct = $(`.woobt-product-together[data-key="${key}"]`);
+  itemProduct.after(alertMessage);
 };
 
 const uncheckInputFields = (key) => {
@@ -26,38 +27,38 @@ if (!itemProduct.hasClass('woobt-hide')) {
 };
 
 function updateTPostQty() {
-const lengthActive = $('.pa_length > div.active');
-const heightActive = $('.pa_height > div.active');
-
-if (lengthActive.length === 0 || heightActive.length === 0) {
-  return;
-}
-
-//postQty 10m=5, 25m=10, 50m=20
-const postQtyMap = { '10m-33ft': 5, '25m-82ft': 10, '50m-164ft': 20 };
- //height 150=qwbj, 175=kgps, 225=cao4
-const tpostHeightMap = { '60cm-2ft': 'qwbj', '90cm-3ft': 'qwbj', '1-05m-3-5ft': 'kgps', '1-2m-4ft': 'kgps', '1-8m-5-9ft': 'cao4' };
-
-const selectedLength = lengthActive.attr('value');
-const selectedHeight = heightActive.attr('value');
-
-const meshLength = postQtyMap[selectedLength];
-const meshHeight = tpostHeightMap[selectedHeight];
-const quantity = Number($("#addToCart .variations_form.cart .quantity .input-text").val());
-const postQty = meshLength * quantity;
-
-updateInputFieldsQty(meshHeight, postQty);
-
-const resetKeys = Object.values(tpostHeightMap).filter(key => key !== meshHeight);
-resetKeys.forEach(key => {
-  updateInputFieldsQty(key, 1);
-  uncheckInputFields(key);
-});
+  const lengthActive = $('.pa_length > div.active');
+  const heightActive = $('.pa_height > div.active');
+  
+  if (lengthActive.length === 0 || heightActive.length === 0) {
+      return;
+  }
+  
+  //postQty 10m=5, 25m=10, 50m=20
+  const postQtyMap = { '10m-33ft': 5, '25m-82ft': 10, '50m-164ft': 20 };
+  //height 150=qwbj, 175=kgps, 225=cao4
+  const tpostHeightMap = { '60cm-2ft': 'qwbj', '90cm-3ft': 'qwbj', '1-05m-3-5ft': 'kgps', '1-2m-4ft': 'kgps', '1-8m-5-9ft': 'cao4' };
+  
+  const selectedLength = lengthActive.attr('value');
+  const selectedHeight = heightActive.attr('value');
+  
+  const meshLength = postQtyMap[selectedLength];
+  const meshHeight = tpostHeightMap[selectedHeight];
+  const quantity = Number($("#addToCart .variations_form.cart .quantity .input-text").val());
+  const postQty = meshLength * quantity;
+  
+  updateInputFieldsQty(meshHeight, postQty);
+  
+  const resetKeys = Object.values(tpostHeightMap).filter(key => key !== meshHeight);
+  resetKeys.forEach(key => {
+      updateInputFieldsQty(key, 1);
+      uncheckInputFields(key);
+  });
 }
 
 function updatePegsQty() {
 if ($('.pa_length > div.active').length == 0) {
-  return;
+return;
 }
 //legnth
 const lengthMap = { '10m-33ft': 10, '25m-82ft': 25, '50m-164ft': 50 };
@@ -73,7 +74,7 @@ $('.woobt-product-together[data-key="slph"]').attr('data-qty', pegQty);
 
 function updateCableTieQty() {
 if ($('.pa_length > div.active').length === 0 || $('.pa_height > div.active').length === 0) {
-  return;
+return;
 }
 //legnth
 const postQtyMap = { '10m-33ft': 5, '25m-82ft': 10, '50m-164ft': 20 };
@@ -88,9 +89,9 @@ const quantity = Number($("#addToCart .variations_form.cart .quantity .input-tex
 //calculate cable tier
 let CableTieQty;
 if (meshHeight >= 100) {
-  CableTieQty = Math.ceil((meshLength * quantity * 12) / 100);
+CableTieQty = Math.ceil((meshLength * quantity * 12) / 100);
 } else {
-  CableTieQty = Math.ceil((meshLength * quantity * 8) / 100);
+CableTieQty = Math.ceil((meshLength * quantity * 8) / 100);
 }
 
 $('.woobt-product-together[data-key="rgil"] input[type="number"]').val(CableTieQty);
@@ -135,20 +136,20 @@ if (lengthNeeded <= 95) {
 
 function calculateTensioningWireQty(meshLength, quantity, lengthLimit, meshHeight) {
 if (meshHeight >= 100) {
-  return Math.ceil((meshLength * 3.1 * quantity) / lengthLimit);
+return Math.ceil((meshLength * 3.1 * quantity) / lengthLimit);
 } else {
-  return Math.ceil((meshLength * 2.1 * quantity) / lengthLimit);
+return Math.ceil((meshLength * 2.1 * quantity) / lengthLimit);
 }
 }
 
 function updateThisProduct() {
-$('#addToCart .variations_form.cart select').each(function (index, el) {
-  $(`.woobt-product-this select#${$(this).attr('id')}`).val($(this).val());
-  $(`.woobt-product-this select#${$(this).attr('id')}`).trigger('change');
-})
-const getProductQty = Number($("#addToCart .variations_form.cart .quantity .input-text").val());
-$('.woobt-product-this .quantity .input-text').val(getProductQty);
-$('.woobt-product-this .quantity .input-text').attr('value', getProductQty);
+  $('#addToCart .variations_form.cart select').each(function (index, el) {
+      $(`.woobt-product-this select#${$(this).attr('id')}`).val($(this).val());
+      $(`.woobt-product-this select#${$(this).attr('id')}`).trigger('change');
+  })
+  const getProductQty = Number($("#addToCart .variations_form.cart .quantity .input-text").val());
+  $('.woobt-product-this .quantity .input-text').val(getProductQty);
+  $('.woobt-product-this .quantity .input-text').attr('value', getProductQty);
 }
 
 function updateWooPrice() {
@@ -160,39 +161,14 @@ if ($('.woobt-total .amount').length == 2) {
   $('.woobt-products button[type="submit"]').html(`ADD TO ORDER • ${$('.woobt-total .amount').text()}`);
 }
 }
-
-function generateBoxes(elName, elId, elClass) {
-$('#addToCart form table').after(`<div class="${elClass}"><h5>${elName}</h5></div>`);
-
-$(`#addToCart table #${elId} option`).each(function (index, el) {
-  if ($(el).val().length > 0) {
-    $(`.${elClass}`).append(`<div value="${$(el).attr('value')}"> ${$(el).text()} </div>`)
-  }
-});
-
-$(`.${elClass} > div`).click(function () {
-  if ($(this).hasClass('active')) {
-    $(`.${elClass} > div`).removeClass('active');
-    $(`#${elId}`).val('');
-    $(`#${elId}`).trigger('change');
-  } else {
-    $(`#${elId}`).val($(this).attr('value'));
-    $(`#${elId}`).trigger('change');
-    $(`.${elClass} > div`).removeClass('active');
-    $(this).addClass('active');
-  }
-})
-
-$(`.${elClass} > div[value="${$(`#${elId}`).val()}"]`).addClass('active');
-}
-
+ 
 function createHeaderDiv(className, text, content) {
 $('#addToCart form table').before(`
   <div class="${className}">
     <h5>${text} 
-      <span style="display:inline-block; position:relative;" class="info-wrapper ${className}-info">
-        <img width="15" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/octicon_info-24.svg">
-        <div class="hide-box">
+      <span style="display:inline-block;" class="info-wrapper ${className}-info">
+        <img width="15" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/octicon_info-24.svg" alt="Info icon" class="info-icon">
+        <div class="info-box hide-box">
           <span class="info-box-close">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M6 6L1 1M6 6L11 11M6 6L11 1M6 6L1 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> </svg>
           </span>
@@ -206,71 +182,333 @@ $('#addToCart form table').before(`
 }
 
 function clickToUpdate(className) {
-$(`.${className} > div`).click(function () {
-    if ($(this).hasClass('active')) {
-        $(`.${className} > div`).removeClass('active');
-        $(`#${className}`).val('');
-        $(`#${className}`).trigger('change');
-    } else if ($(this).css('cursor') != 'not-allowed') {
-        $(`#${className}`).val($(this).attr('value'));
-        $(`#${className}`).trigger('change');
-        $(`.${className} > div`).removeClass('active');
-        $(this).addClass('active');
-    }
-})
+  $(`.${className} > div`).click(function () {
+      $(`.${className} h5 span.select-option-text`).remove();
+      // check if custom message is visible
+      if ($('#custom-message').is(':visible')) {
+          $('#custom-message').slideUp();
+      }
+      if ($(this).hasClass('active')) {
+          $(`.${className} > div`).removeClass('active');
+          $(`#${className}`).val('');
+          $(`#${className}`).trigger('change');
+      } else if ($(this).css('cursor') != 'not-allowed') {
+          $(`#${className}`).val($(this).attr('value'));
+          $(`#${className}`).trigger('change');
+          $(`.${className} > div`).removeClass('active');
+          $(this).addClass('active');
+      }
+  });
 
-$(`.${className} > div[value="${$(`#${className}`).val()}"]`).addClass('active');
+  $(`.${className} > div[value="${$(`#${className}`).val()}"]`).addClass('active');
 }
 
 function applyStyles(selector) {
-$(`.${selector} > div`).css('display', "none");
+  $(`.${selector} > div`).css('display', "none");
 
-$(`#addToCart .variations_form.cart select#${selector} option`).each(function name(index, el) {
-    $(`.${selector} > div[value="${$(this).val()}"]`).css({
-        'display': 'block',
-        'pointer-events': 'unset',
-        'opacity': '1',
-        'cursor': 'pointer'
-    });
-});
+  $(`#addToCart .variations_form.cart select#${selector} option`).each(function name(index, el) {
+      $(`.${selector} > div[value="${$(this).val()}"]`).css({
+          'display': 'block',
+          'pointer-events': 'unset',
+          'opacity': '1',
+          'cursor': 'pointer'
+      });
+  });
 
-$(`.${selector} > div`).each(function (index, el) {
-    if ($(el).css('display') == 'none') {
-        $(el).css({
-            'display': 'block',
-            'opacity': '0.2',
-            'cursor': 'not-allowed'
-        });
-    }
-});
+  $(`.${selector} > div`).each(function (index, el) {
+      if ($(el).css('display') == 'none') {
+          $(el).css({
+              'display': 'block',
+              'opacity': '0.2',
+              'cursor': 'not-allowed'
+          });
+      }
+  });
 
-$(`.${selector} > div`).each(function (index, el) {
-    if ($(el).attr('value') == $(`#${selector}`).val()) {
-        $(`.${selector} > div`).removeClass('active');
-        $(el).addClass('active');
-        return false;
-    }
-});
+  $(`.${selector} > div`).each(function (index, el) {
+      if ($(el).attr('value') == $(`#${selector}`).val()) {
+          $(`.${selector} > div`).removeClass('active');
+          $(el).addClass('active');
+          return false;
+      }
+  });
+}
+
+function initGalleryPhotoListCw() {
+
+  let photoWrap = jQuery('.gallery-photo-list-chicken-wire');
+  let photos = photoWrap.find('.item');
+  let	step = Math.floor(photoWrap.width() / photos.innerWidth());
+
+  if(step < 2 ){
+      step = 2;
+  }
+  
+  photos.each(function (item) {
+      if (item < step) {
+          jQuery(this).addClass('show');
+
+          let imgBox = $(this).find('.img-box');
+          let imgURL = imgBox.data('image');
+
+          imgBox.css({
+              'background-image': 'url(' + imgURL + ')'
+          })
+      }
+
+      if (item == 9) {
+          let overlay = `<span class="overlay add-more"><i class="fa fa-solid fa-image"></i>More <br> Photos</span>`;
+          let content = $(this).find('.content');
+
+          content.append(overlay);
+      }
+  });
+
+  jQuery('body').on('click', '.gallery-photo-list-chicken-wire .add-more', function (e) {
+      e.preventDefault();
+
+      jQuery(this).remove();
+
+      let hiddenPhotos = photoWrap.find('.item:not(.show)');
+
+      hiddenPhotos.each(function (item) {
+          if (item < step) {
+              jQuery(this).addClass('show');
+
+              let imgBox = $(this).find('.img-box');
+              let imgURL = imgBox.data('image');
+
+              imgBox.css({
+                  'background-image': 'url(' + imgURL + ')'
+              })
+          }
+      });
+
+      hiddenPhotos = photoWrap.find('.item:not(.show)');
+      let showedPhotos = photoWrap.find('.item.show');
+
+      if(hiddenPhotos.length > 0){
+          showedPhotos.each(function(index){
+
+              if(showedPhotos.length - 1 == index ){
+                  let overlay = `<span class="overlay add-more"><i class="fa fa-solid fa-image"></i>More <br> Photos</span>`;
+                  let lastItem = $(this).find('.content');
+
+                  lastItem.append(overlay);
+              }
+          });
+      }
+
+      let showLess = photoWrap.find('.show-less');
+
+      if (showLess.length == 0 ) {
+          let overlayLess =  `<span class="overlay show-less"><i class="fa fa-solid fa-image"></i>Less <br> Photos</span>`;
+          let firstItem = photoWrap.find('.show:first-child .content');
+
+          firstItem.append(overlayLess);
+      }
+  });
+
+  jQuery('body').on('click', '.gallery-photo-list-chicken-wire .show-less', function (e) {
+      e.preventDefault();
+
+      jQuery(this).remove();
+
+      let showedPhotos = photoWrap.find('.item.show');
+
+      if(showedPhotos.length > step){
+          showedPhotos.each(function (item) {
+              if (showedPhotos.length - step < step){
+                  if (item < showedPhotos.length - step) {
+                      jQuery(this).removeClass('show');
+                  }
+              } else{
+                  if (item <  step) {
+                      jQuery(this).removeClass('show');
+                  }
+              }
+          });
+      }
+
+      showedPhotos = photoWrap.find('.item.show');
+      let addMore = photoWrap.find('.add-more');
+
+      if(showedPhotos.length > step ){
+          showedPhotos.each(function(index){
+              if(index==0 ){
+                  let overlayLess =  `<span class="overlay show-less"><i class="fa fa-solid fa-image"></i>Less <br> Photos</span>`;
+                  let firstItem = $(this).find('.content');
+                  firstItem.append(overlayLess);
+              }
+          })
+      }
+
+      if(addMore.length == 0){
+          showedPhotos.each(function(index){
+              if(showedPhotos.length - 1 == index ){
+                  let overlay = `<span class="overlay add-more"><i class="fa fa-solid fa-image"></i>More <br> Photos</span>`;
+                  let lastItem = $(this).find('.content');
+
+                  lastItem.append(overlay);
+              }
+
+          });
+      }
+  });
+
+  let hrefs = []
+  $(".gallery-photo-list-chicken-wire a").each(function () {
+      hrefs.push($(this).attr('href'));
+  });
+
+  $(".gallery-photo-list-chicken-wire a").on('click', function (e) {
+      e.preventDefault();
+
+      let modalContent = `
+          <div class='term-modal gallery-modal'>
+          <div class='gallery-modal-content'>
+          <span class='aira-close'>&times;</span>
+          <div class='modal-image-container'>
+          <button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style="display: block;">Previous</button>
+          <img class='gallery-slider-modal-img'  src='${ $(this).attr('href') }' >
+          <button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style="display: block;">Next</button>
+          </div>
+          </div>
+          </div> 
+      `;
+
+      $('#footer').before().append(modalContent);
+
+      $('.term-modal').show();
+
+      // clicked on Modal Next Button
+      $('.slick-next').click(function () {
+          let current = $('.gallery-slider-modal-img').attr('src');
+          let currentIndex = hrefs.indexOf(current);
+
+          if (currentIndex == hrefs.length - 1) {
+              currentIndex = -1
+          }
+          nextImg = currentIndex + 1;
+          $('.gallery-slider-modal-img').attr("src", hrefs[nextImg]);
+      });
+
+      // clicked on Modal Prev Button
+      $('.slick-prev').click(function () {
+          let current = $('.gallery-slider-modal-img').attr('src');
+          let currentIndex = hrefs.indexOf(current);
+
+          if (currentIndex == 0) {
+              currentIndex = hrefs.length;
+          }
+          prevImg = currentIndex - 1;
+          $('.gallery-slider-modal-img').attr("src", hrefs[prevImg]);
+      });
+  })
+
+  $(window).click(function (event) {
+      if ((event.target.className == 'term-modal gallery-modal') || (event.target.className == 'aira-close')) {
+          $('.term-modal.gallery-modal').remove();
+      }
+  });
+}
+
+function closeAllToggles() {
+  $('.elementor-toggle-item').each(function() {
+      var $title = $(this).find('.elementor-tab-title');
+      var $content = $(this).find('.elementor-tab-content');
+      
+      if ($title.hasClass('elementor-active')) {
+          $title.removeClass('elementor-active');
+          $content.slideUp().removeClass('elementor-active');
+      }
+  });
+}
+
+function alertAddtoCart() {
+  var $customMessage = '<div id="custom-message" style="display:none; font-size:12px;"></div>';
+  var addToCartButton = $('.single_variation_wrap .single_add_to_cart_button');
+  addToCartButton.after($customMessage);
+
+  addToCartButton.click(function(e) {
+      e.preventDefault(); // Prevent the form from submitting                
+      
+      // First, check if the button has the 'disabled' class
+      if ($(this).hasClass('disabled')) {
+          e.stopPropagation();
+  
+          var requiredClasses = ['pa_height', 'pa_length', 'pa_hole-size', 'gauge-wire-diameter', 'pa_grade'];
+          var errorMessage = ''; // To store the error message
+  
+          // Loop through each required class
+          $.each(requiredClasses, function(index, className) {
+              var selector = '.' + className;
+              var div = $(selector);
+  
+              // Check if the div has an active child
+              if (!div.find('.active').length) { // Assuming 'active' is the class applied to selected options
+                  optionTitles = className.replace('pa_', '').replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                  if (optionTitles === 'Gauge Wire Diameter') {
+                      optionTitles = 'Wire Diameter';
+                  }
+                  errorMessage += 'Please select the "' + optionTitles + '" option.<br>';
+                  
+                  // Avoid appending multiple messages by checking if it already exists
+                  if (div.find('.select-option-text').length === 0) {
+                      div.find('h5>span').append('<span class="select-option-text" style="color:red; font-size:12px;"><< Please select option</span>');
+                  }
+
+              }
+          });
+  
+          // If there is an error message, show it and prevent form submission
+          if (errorMessage) {
+              $('#custom-message').html(errorMessage).slideDown();
+          } else {
+              $('#custom-message').slideUp(); // Hide the message if all attributes are selected
+              $('.select-option-text').remove();
+          }
+
+      } else {
+          addToCart('.single_variation_wrap .single_add_to_cart_button');
+      }
+  });
+}
+
+function addToCart(className) {
+  $(className).click(function () {
+      // Create the notice if it doesn't exist
+      if ($(".custom-slide-notice").length === 0) {
+          $("body").append('<div class="custom-slide-notice"></div>');
+      }
+      
+      $(".custom-slide-notice").text("Added to cart");
+      $(".custom-slide-notice").addClass("show");
+      
+      setTimeout(function() {
+          $(".custom-slide-notice").removeClass("show");
+      }, 5000);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
 
   const floatingHeader = (productTitle = '', totalPrice = '') => {
-    return `<div class="fixed-buy-bar"> 
-        <div class="hidden-xs container"> 
-            <div class="col-sm-7 col-md-8 col-buy-bar-left"> 
-                <h4><a href="#product-options-var-total"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a><strong>${productTitle}</strong></h4>
-            </div> 
-            <div class="col-sm-5 col-md-4 col-buy-bar-right"> 
-                <p class="price-section">
-                    <small class="hidden-xs">Total: </small> ${totalPrice}
-                </p> 
-                <a class="btn-smb-green" href="#product-options-var-total"><span>Buy Now</span></a> 
-            </div> 
-        </div> 
+      return `<div class="fixed-buy-bar"> 
+          <div class="hidden-xs container"> 
+              <div class="col-sm-7 col-md-8 col-buy-bar-left"> 
+                  <h4><a href="#product-options-var-total"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></a><strong>${productTitle}</strong></h4>
+              </div> 
+              <div class="col-sm-5 col-md-4 col-buy-bar-right"> 
+                  <p class="price-section">
+                      <small class="hidden-xs">Total: </small> ${totalPrice}
+                  </p> 
+                  <a class="btn-smb-green" href="#product-options-var-total"><span>Buy Now</span></a> 
+              </div> 
+          </div> 
       </div>`;
   }
-  
+
   const checkAndAddFloatingHeader = () => {
       const smbToggle = $('#smb-toggle');
       if (smbToggle.length) {
@@ -282,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function () {
               if ($('.header-navigation').hasClass('es-sticky') && !$('.fixed-buy-bar').length) {
                   const totalPrice = $('.woobt-total .woocommerce-Price-amount').html();
                   const productTitle = $('.product_title').text().replace('In Stock', '').trim();
-    
+      
                   const floatingHeaderHTML = floatingHeader(productTitle, totalPrice);
                   $('body .header-navigation').append(floatingHeaderHTML);
               }
@@ -302,278 +540,318 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const heightContent = `<div class="height-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
   <div style="text-align:left;">
-    <h6>Height</h6>
+      <h6>Height</h6>
   </div>
   </div>
   <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/chicken-wire-height-diagram-768x768.jpg" width="200px" height="200px">`;
 
-  const lenghtContent = `<div class="lenght-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
+  const LengthContent = `<div class="Length-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
   <div style="text-align:left;">
-      <h6>Lenght</h6>
-    </div>
+      <h6>Length</h6>
+      </div>
   </div>
   <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/chicken-wire-lenght-diagram-768x768.jpg" width="200px" height="200px">`;
-  
+
   const holeSizeContent = `<div class="holesize-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
   <div style="text-align:left;">
       <h6>Hole Size</h6>
-    </div>
+      </div>
   </div>
   <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/hole-size-chicken-wire-768x768.jpg" width="200px" height="200px">`;
 
   const wireDiameter = `<div class="wirediameter-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
   <div style="text-align:left;">
       <h6>Wire Diameter</h6>
-    </div>
+      </div>
   </div>
   <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/wire-dia-chicken-wire-768x768.jpg" width="200px" height="200px">`;
 
   const grade = `<div class="grade-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
   <div style="text-align:left;">
       <h6>Grade</h6>
-    </div>
+      </div>
   </div>
   <img style="width:100%;" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/06/grade-table2.png" width="200px" height="200px">`;
 
 
   // Create Header for select divs
   createHeaderDiv("pa_height", "Height", heightContent);
-  createHeaderDiv("pa_length", "Length", lenghtContent);
+  createHeaderDiv("pa_length", "Length", LengthContent);
   createHeaderDiv("pa_hole-size", "Hole Size", holeSizeContent);
   createHeaderDiv("gauge-wire-diameter", "Wire Diameter", wireDiameter);
   createHeaderDiv("pa_grade", "Grade", grade);
-  
+
 
   $("#addToCart .variations_form.cart .quantity .input-text").change(() => {
-  updateTPostQty();
-  updatePegsQty();
-  updateCableTieQty();
-  updateTensioningWireQty();
-  updateThisProduct();
+      updateTPostQty();
+      updatePegsQty();
+      updateCableTieQty();
+      updateTensioningWireQty();
+      updateThisProduct();
   });
 
   const ids = ['pa_height', 'pa_length', 'pa_hole-size', 'gauge-wire-diameter', 'pa_grade'];
 
   ids.forEach(id => {
-    $(`#addToCart table #${id} option`).each(function (index, el) {
-      if ($(el).val().length > 0) {
-        $(`.${id}`).append(`<div value="${$(el).attr('value')}"> ${$(el).text()} </div>`);
-      }
-    });
-  });
+      // Create divs for each select option
+      $(`#addToCart table #${id} option`).each(function (index, el) {
+          if ($(el).val().length > 0) {
+              $(`.${id}`).append(`<div value="${$(el).attr('value')}"> ${$(el).text()} </div>`);
+          }
+      });
 
-  // Click on select divs
-  clickToUpdate('pa_height');
-  clickToUpdate('pa_length');
-  clickToUpdate('pa_hole-size');
-  clickToUpdate('gauge-wire-diameter');
-  clickToUpdate('pa_grade');
+      // Click function on select divs
+      clickToUpdate(id);
+  });
 
   // add text
   $('#addToCart .woocommerce-variation-add-to-cart .quantity').before('<h5>Quantity</h5>');
 
   // change
   $('#addToCart .variations_form.cart select').change(function () {
-    setTimeout(() => {
+      setTimeout(() => {
 
-      $('#addToCart tbody select#pa_length, #addToCart tbody select#pa_height, #addToCart tbody select#pa_hole-size, #addToCart tbody select#gauge-wire-diameter, #addToCart tbody select#pa_grade').each(function (index, el) {
-        if ($(this).val().length != 0) {
-          $(this).addClass('active')
-        } else {
-          $(this).removeClass('active')
-        }
-      })
-    
-      // highlight selected options
-      applyStyles('pa_height');
-      applyStyles('pa_length');
-      applyStyles('pa_hole-size');
-      applyStyles('gauge-wire-diameter');
-      applyStyles('pa_grade');
-  
-      updateTPostQty();
-      updatePegsQty();
-      updateCableTieQty();
-      updateTensioningWireQty();
-      updateThisProduct();
+          const selectElements = $('#addToCart tbody select#pa_length, #addToCart tbody select#pa_height, #addToCart tbody select#pa_hole-size, #addToCart tbody select#gauge-wire-diameter, #addToCart tbody select#pa_grade');
+          let allSelected = true;
 
-      //change select text to 'Select'
-      $('#addToCart select, .woobt-product select').each(function (index, el) {
-        $(el)[0].options[0].text = 'Select';
-      })
+          selectElements.each(function (index, el) {
+              if ($(this).val().length != 0) {
+                  $(this).addClass('active');
+              } else {
+                  $(this).removeClass('active');
+                  allSelected = false;
+              }
+          });
+          console.log(allSelected);
 
-    }, 200)
+
+          // Remove hide-accessories class if all options are selected
+          if (allSelected) {
+              $('.hide-accessories').removeClass('hide-accessories');
+          } else {
+              $('.woobt-products').addClass('hide-accessories');
+          }
+          
+          // highlight selected options
+          applyStyles('pa_height');
+          applyStyles('pa_length');
+          applyStyles('pa_hole-size');
+          applyStyles('gauge-wire-diameter');
+          applyStyles('pa_grade');
+
+          updateTPostQty();
+          updatePegsQty();
+          updateCableTieQty();
+          updateTensioningWireQty();
+          updateThisProduct();
+
+          //change select text to 'Select'
+          $('#addToCart select, .woobt-product select').each(function (index, el) {
+              $(el)[0].options[0].text = 'Select';
+          })
+
+      }, 200)
   });
 
 
-// text
-$('.woobt-actions').appendTo('.woobt-products'); // move fbt button
-$('.woobt-products').prepend('<h6>Suggested Add On Quantity <span style="display:inline-block; "> Select All <input class="selectAll" checked type="checkbox"> </span></h6>');
+  // text
+  optionsText = '<p class="option-text">Fence accessories will appear in this space after you have selected the chicken wire options.</p>';
+  $('.woobt-actions').appendTo('.woobt-products'); // move fbt button
+  $('.woobt-products').prepend('<h2>Add Fence Accessories</h2>' +  optionsText );
+  $('.woobt-products').addClass('hide-accessories');
 
-
-$('#addToCart button[type="submit"]').eq(0).before($('.bulk-info-table').eq(0))
-$('#sort_customizable_table').before('<h6>Bulk Discount</h6>');
-$('.bulk-info-table .wdr_table_discounted_value').each(function (index, el) {
+  $('#addToCart button[type="submit"]').eq(0).before($('.bulk-info-table').eq(0))
+  $('#sort_customizable_table').before('<h6>Bulk Discount</h6>');
+  $('.bulk-info-table .wdr_table_discounted_value').each(function (index, el) {
   $(this).text(`Save ${$(this).text()}`);
-})
+  })
 
-// bulk info elements
-$('.bulk-info-table').eq(0).before('<div class="bulk-info"><img width="18px" height="18px" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/ic_baseline-local-offer.svg"> Bulk Discount & Save up to 15% <img width="18px" height="18px" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/mingcute_down-line.svg"> </div>');
-$('.bulk-info').click(function () {
-  if ($('.bulk-info-table').css('display') == 'none') {
-    $('.bulk-info-table').css('display', 'block');
-    $('.bulk-info img').eq('1').css('rotate', '180deg');
-  } else if ($('.bulk-info-table').css('display') == 'block') {
-    $('.bulk-info-table').css('display', 'none');
-    $('.bulk-info img').eq('1').css('rotate', '0deg');
-  }
-})
-$('body .bulk-info-table tr').click(function () {
-  $("#addToCart .variations_form.cart .quantity .input-text").val($(this).children('.wdr_bulk_range').text().split('+')[0]);
-  $("#addToCart .variations_form.cart .quantity .input-text").trigger('change');
-  $('body .bulk-info-table tr').removeClass('active');
-  $(this).addClass('active');
-})
+  // bulk info elements
+  $('.bulk-info-table').eq(0).before('<div class="bulk-info"><img width="18px" height="18px" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/ic_baseline-local-offer.svg"> Bulk Discount & Save up to 15% <img width="18px" height="18px" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/mingcute_down-line.svg"> </div>');
+  $('.bulk-info').click(function () {
+      if ($('.bulk-info-table').css('display') == 'none') {
+          $('.bulk-info-table').css('display', 'block');
+          $('.bulk-info img').eq('1').css('rotate', '180deg');
+      } else if ($('.bulk-info-table').css('display') == 'block') {
+          $('.bulk-info-table').css('display', 'none');
+          $('.bulk-info img').eq('1').css('rotate', '0deg');
+      }
+  })
+  $('body .bulk-info-table tr').click(function () {
+      $("#addToCart .variations_form.cart .quantity .input-text").val($(this).children('.wdr_bulk_range').text().split('+')[0]);
+      $("#addToCart .variations_form.cart .quantity .input-text").trigger('change');
+      $('body .bulk-info-table tr').removeClass('active');
+      $(this).addClass('active');
+  })
 
-$('#addToCart .woocommerce-variation-add-to-cart.variations_button .single_add_to_cart_button').before($('.woocommerce-variation.single_variation'))
+  $('#addToCart .woocommerce-variation-add-to-cart.variations_button .single_add_to_cart_button').before($('.woocommerce-variation.single_variation'))
 
-// boxes
-const createInfoWrapper = (additionalClass = '', content = '') => {
-  return `<span style="display:inline-block; position:relative;" class="info-wrapper ${additionalClass}">
-    <img width="15" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/octicon_info-24.svg">
-    <div class="hide-box"><span class="info-box-close"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M6 6L1 1M6 6L11 11M6 6L11 1M6 6L1 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </span>${content}</div>
-  </span>`;
-};
+  // boxes
+  const createInfoWrapper = (additionalClass = '', content = '') => {
+      return `<span style="display:inline-block;" class="info-wrapper ${additionalClass}">
+          <img width="15" src="https://env-wirefence-wfpremstg.kinsta.cloud/wp-content/uploads/2024/03/octicon_info-24.svg" alt="Info icon" class="info-icon">
+          <div class="info-box hide-box">
+              <span class="info-box-close"> 
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M6 6L1 1M6 6L11 11M6 6L11 1M6 6L1 11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </svg> 
+              </span>
+              <div class="tensioningwire-content">
+                  ${content}
+              </div>    
+          </div>
+      </span>`;
+  };
 
-const tpostContent = `<div class="tpost-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
+  const tpostContent = `<div class="tpost-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
   <div style="text-align:left;">
-    <h6>T Posts</h6>
-    <ul>
+      <h6>T Posts</h6>
+      <ul>
       <li>Compatible with wire mesh, chicken wire, and panels. </li>
       <li>Temporary or permanent</li>
       <li>Quick & easy installation</li>
       <li>30-50 year lifespan</li>
-    </ul>
+      </ul>
   </div>
-</div>
-<img style="width:100%;" src="https://www.wirefence.co.uk/wp-content/uploads/2023/07/IMAGE-10-post-calculator-edited-768x768.jpg.webp" width="200px" height="200px">`;
+  </div>
+  <img style="width:100%;" src="https://www.wirefence.co.uk/wp-content/uploads/2023/07/IMAGE-10-post-calculator-edited-768x768.jpg.webp" width="200px" height="200px">`;
 
-const pegsContent = `<div class="pegs-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
+  const pegsContent = `<div class="pegs-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
   <div style="text-align:left;">
-    <h6>Pegs</h6>
+      <h6>Attach to soil</h6>
   </div>
-</div>`;
+  </div>
+  <img style="width:100%;" src="https://www.wirefence.co.uk/wp-content/uploads/2021/02/Pegs_Chicken-Wire-Wood-Post-NO-TEXT.jpg" width="200px" height="200px">`;
 
-const cableTiesContent = `<div class="cableTies-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
+  const cableTiesContent = `<div class="cableTies-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
   <div style="text-align:left;">
-    <h6>Cable Ties</h6>
+      <h6>Attach to posts</h6>
   </div>
-</div>`;
-
-const tensioningWireContent = `<div class="tensioningwire-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
-  <div style="text-align:left;">
-  <h6>Tensioning Wire</h6>
   </div>
-</div>`;
-$('.woobt-products div[data-key="qwbj"] .woobt-title-inner').append(createInfoWrapper('t-post-info', tpostContent));
-$('.woobt-products div[data-key="kgps"] .woobt-title-inner').append(createInfoWrapper('t-post-info', tpostContent));
-$('.woobt-products div[data-key="cao4"] .woobt-title-inner').append(createInfoWrapper('t-post-info', tpostContent));
-$('.woobt-products div[data-key="slph"] .woobt-title-inner').append(createInfoWrapper('pegs-info', pegsContent));
-$('.woobt-products div[data-key="rgil"] .woobt-title-inner').append(createInfoWrapper('cable-ties-info', cableTiesContent));
-$('.woobt-products div[data-key="8jwr"] .woobt-title-inner').append(createInfoWrapper('tensioning-wire-info', tensioningWireContent));
-$('.woobt-products div[data-key="79ys"] .woobt-title-inner').append(createInfoWrapper('tensioning-wire-info', tensioningWireContent));
-$('.woobt-products div[data-key="uetl"] .woobt-title-inner').append(createInfoWrapper('tensioning-wire-info', tensioningWireContent));
+  <img style="width:100%;" src="https://www.wirefence.co.uk/wp-content/uploads/2021/01/Chicken-Wire-Fence_Metal-Post.jpg" width="200px" height="200px">`;
 
-$('label[for="pa_length"]').after(createInfoWrapper('length-info'));
-$('label[for="pa_height"]').after(createInfoWrapper('height-info'));
-$('label[for="pa_hole-size"]').after(createInfoWrapper('hole-size-info'));
-$('label[for="gauge-wire-diameter"]').after(createInfoWrapper('gauge-wire-diameter-info'));
-$('label[for="pa_grade"]').after(createInfoWrapper('pa_grade-info'));
+  const tensioningWireContent = `<div class="tensioningwire-content" style="display:flex; align-items:center; gap:8px; margin-bottom: 10px;">
+      <div style="text-align:left;">
+          <h6>Tensioning Wire</h6>
+          <p>Increase strength of fence / reduce sagging</p>
+      </div>
+  </div>`;
 
-// click on info icon
-$('.info-wrapper > img').click(function () {
-  if ($(this).parent().children('div').attr('class') == "hide-box") {
-    $(this).parent().children('div').removeClass('hide-box');
-  } else {
-    $(this).parent().children('div').addClass('hide-box')
-  }
-})
+  $('.woobt-products div[data-key="qwbj"] .woobt-title-inner').append(createInfoWrapper('t-post-info', tpostContent));
+  $('.woobt-products div[data-key="kgps"] .woobt-title-inner').append(createInfoWrapper('t-post-info', tpostContent));
+  $('.woobt-products div[data-key="cao4"] .woobt-title-inner').append(createInfoWrapper('t-post-info', tpostContent));
+  $('.woobt-products div[data-key="slph"] .woobt-title-inner').append(createInfoWrapper('pegs-info', pegsContent));
+  $('.woobt-products div[data-key="rgil"] .woobt-title-inner').append(createInfoWrapper('cable-ties-info', cableTiesContent));
+  $('.woobt-products div[data-key="8jwr"] .woobt-title-inner').append(createInfoWrapper('tensioning-wire-info', tensioningWireContent));
+  $('.woobt-products div[data-key="79ys"] .woobt-title-inner').append(createInfoWrapper('tensioning-wire-info', tensioningWireContent));
+  $('.woobt-products div[data-key="uetl"] .woobt-title-inner').append(createInfoWrapper('tensioning-wire-info', tensioningWireContent));
 
-$(window).click(function (e) {
-  if ($(e.target).closest('.info-wrapper').length != 1) {
-    $('.info-wrapper > div').addClass('hide-box');
-  }
-})
+  $('label[for="pa_length"]').after(createInfoWrapper('length-info'));
+  $('label[for="pa_height"]').after(createInfoWrapper('height-info'));
+  $('label[for="pa_hole-size"]').after(createInfoWrapper('hole-size-info'));
+  $('label[for="gauge-wire-diameter"]').after(createInfoWrapper('gauge-wire-diameter-info'));
+  $('label[for="pa_grade"]').after(createInfoWrapper('pa_grade-info'));
 
-$('.info-box-close').click(function () {
-  $('.info-wrapper > div').addClass('hide-box')
-})
-
-const selectAllCheckboxes = (selectAllCheckbox, checkboxes) => {
-  selectAllCheckbox.change(function () {
-    if (selectAllCheckbox.is(':checked')) {
-      checkboxes.prop('checked', true);
-      checkboxes.trigger('change');
-    } else if (!selectAllCheckbox.is(':checked')) {
-      checkboxes.prop('checked', false);
-      checkboxes.trigger('change');
-    }
+  // click on info icon
+  $('.info-wrapper .info-icon').click(function() {
+      var $infoBox = $(this).siblings('.info-box');
+      $infoBox.toggleClass('hide-box');
+      $(this).parent('.info-wrapper').toggleClass('modals');
   });
-};
 
-const selectAll = $('.selectAll');
-const checkboxes = $('.woobt-products #woobt_checkbox_1, .woobt-products #woobt_checkbox_2, .woobt-products #woobt_checkbox_3, .woobt-products #woobt_checkbox_4, .woobt-products #woobt_checkbox_5, .woobt-products #woobt_checkbox_6');
-selectAllCheckboxes(selectAll, checkboxes);
+  $(window).click(function (e) {
+  if ($(e.target).closest('.info-wrapper').length != 1) {
+      $('.info-wrapper > div').addClass('hide-box');
+  }
+  });
 
-$('.woobt-products button[type="submit"]').before($('.woobt-total.woobt-text'));
+  $('.info-box-close').click(function() {
+      var $infoWrapper = $(this).closest('.info-wrapper');
+      $infoWrapper.find('.info-box').addClass('hide-box');
+      $infoWrapper.removeClass('modals');
+  });
 
-$('.woobt-price').append('<span style="display:inline-block; font-size: 14px;">each</span>');
-$('#addToCart select, .woobt-product select').each(function (index, el) {
+  const selectAllCheckboxes = (selectAllCheckbox, checkboxes) => {
+      selectAllCheckbox.change(function () {
+          if (selectAllCheckbox.is(':checked')) {
+          checkboxes.prop('checked', true);
+          checkboxes.trigger('change');
+          } else if (!selectAllCheckbox.is(':checked')) {
+          checkboxes.prop('checked', false);
+          checkboxes.trigger('change');
+          }
+      });
+  };
+
+  const selectAll = $('.selectAll');
+  const checkboxes = $('.woobt-products #woobt_checkbox_1, .woobt-products #woobt_checkbox_2, .woobt-products #woobt_checkbox_3, .woobt-products #woobt_checkbox_4, .woobt-products #woobt_checkbox_5, .woobt-products #woobt_checkbox_6');
+  selectAllCheckboxes(selectAll, checkboxes);
+
+  $('.woobt-products button[type="submit"]').before($('.woobt-total.woobt-text'));
+
+  $('.woobt-price').append('<span style="display:inline-block; font-size: 14px;">each</span>');
+  $('#addToCart select, .woobt-product select').each(function (index, el) {
   $(el)[0].options[0].text = 'Select';
-});
+  });
 
-const downloadBlock = $('.download-block');
-downloadBlock.addClass('hide-more');
-downloadBlock.after(`<button id="show-more-button">Show More</button>`);
-let showMoreBbutton = $('#show-more-button');
+  const downloadBlock = $('.download-block');
+  downloadBlock.addClass('hide-more');
+  downloadBlock.after(`<button id="show-more-button">Show More</button>`);
+  let showMoreBbutton = $('#show-more-button');
 
-// Set initial button text
-showMoreBbutton.text('Show More');
+  // Set initial button text
+  showMoreBbutton.text('Show More');
 
-// Toggle functionality
-showMoreBbutton.on('click', function() {
-    if (downloadBlock.hasClass('hide-more')) {
-        downloadBlock.removeClass('hide-more');
-        $(this).text('Show Less');
-    } else {
-        downloadBlock.addClass('hide-more');
-        $(this).text('Show More');
-    }
-});
+  // Toggle functionality
+  showMoreBbutton.on('click', function() {
+      if (downloadBlock.hasClass('hide-more')) {
+          downloadBlock.removeClass('hide-more');
+          $(this).text('Show Less');
+      } else {
+          downloadBlock.addClass('hide-more');
+          $(this).text('Show More');
+      }
+  });
 
-const commentList = $('#comments .commentlist');
-const hiddenComments = commentList.children('li:nth-child(n+4)');
+  const commentList = $('#comments .commentlist');
+  const hiddenComments = commentList.children('li:nth-child(n+4)');
 
-// Initially set the hidden class
-hiddenComments.addClass('hide-comment');
+  // Initially set the hidden class
+  hiddenComments.addClass('hide-comment');
 
-// Add the Show More button after the comment list
-commentList.after('<button id="show-more-comments">Show More</button>');
-let showMoreButton = $('#show-more-comments');
+  // Add the Show More button after the comment list
+  commentList.after('<button id="show-more-comments">Show More</button>');
+  let showMoreButton = $('#show-more-comments');
 
-// Toggle functionality
-showMoreButton.on('click', function() {
-    if (hiddenComments.hasClass('hide-comment')) {
-        hiddenComments.removeClass('hide-comment');
-        $(this).text('Show Less');
-    } else {
-        hiddenComments.addClass('hide-comment');
-        $(this).text('Show More');
-        // jump up to #reviews
-        $('html, body').animate({
-            scrollTop: $('#smb-rating').offset().top
-        }, 200);
-    }
-});
+  // Toggle functionality
+  showMoreButton.on('click', function() {
+      if (hiddenComments.hasClass('hide-comment')) {
+          hiddenComments.removeClass('hide-comment');
+          $(this).text('Show Less');
+      } else {
+          hiddenComments.addClass('hide-comment');
+          $(this).text('Show More');
+          // jump up to #reviews
+          $('html, body').animate({
+              scrollTop: $('#smb-rating').offset().top
+          }, 200);
+      }
+  });
 
+  // Customer images gallery
+  initGalleryPhotoListCw();
+
+  // Click event handler for toggle titles
+  $('.elementor-toggle-item .elementor-tab-title').on('click', function(e) {
+      var $this = $(this);
+      
+      // $this.hasClass('elementor-active');
+      if (!$this.hasClass('elementor-active')) {
+          // Close all other toggles
+          closeAllToggles();
+      }
+  });
+
+  alertAddtoCart();
+
+  addToCart('.woobt-form .single_add_to_cart_button');
+  
 });

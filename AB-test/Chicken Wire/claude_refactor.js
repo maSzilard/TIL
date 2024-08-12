@@ -334,59 +334,59 @@ document.addEventListener('DOMContentLoaded', function () {
         `;
     }
 
-function initializeProductPage() {
-    // Set up event listeners
-    $(window).on('scroll', checkAndAddFloatingHeader);
+    function initializeProductPage() {
+        // Set up event listeners
+        $(window).on('scroll', checkAndAddFloatingHeader);
 
-    $("#addToCart .variations_form.cart .quantity .input-text").change(() => {
-        updateTPostQty();
-        updatePegsQty();
-        updateCableTieQty();
-        updateTensioningWireQty();
-        updateThisProduct();
-    });
-
-    $('#addToCart .variations_form.cart select').change(function () {
-        setTimeout(() => {
-            $('#addToCart tbody select#pa_length, #addToCart tbody select#pa_height, #addToCart tbody select#pa_hole-size, #addToCart tbody select#gauge-wire-diameter, #addToCart tbody select#pa_grade').each(function (index, el) {
-                $(this).toggleClass('active', $(this).val().length !== 0);
-            });
-        
-            // highlight selected options
-            ATTRIBUTE_IDS.forEach(applyStyles);
-    
+        $("#addToCart .variations_form.cart .quantity .input-text").change(() => {
             updateTPostQty();
             updatePegsQty();
             updateCableTieQty();
             updateTensioningWireQty();
             updateThisProduct();
+        });
 
-            //change select text to 'Select'
-            $('#addToCart select, .woobt-product select').each(function (index, el) {
-                $(el)[0].options[0].text = 'Select';
-            });
+        $('#addToCart .variations_form.cart select').change(function () {
+            setTimeout(() => {
+                $('#addToCart tbody select#pa_length, #addToCart tbody select#pa_height, #addToCart tbody select#pa_hole-size, #addToCart tbody select#gauge-wire-diameter, #addToCart tbody select#pa_grade').each(function (index, el) {
+                    $(this).toggleClass('active', $(this).val().length !== 0);
+                });
+            
+                // highlight selected options
+                ATTRIBUTE_IDS.forEach(applyStyles);
+        
+                updateTPostQty();
+                updatePegsQty();
+                updateCableTieQty();
+                updateTensioningWireQty();
+                updateThisProduct();
 
-        }, 200);
-    });
+                //change select text to 'Select'
+                $('#addToCart select, .woobt-product select').each(function (index, el) {
+                    $(el)[0].options[0].text = 'Select';
+                });
 
-    // Initialize page elements
-    updateCartButtonText();
-    setupBulkInfoTable();
-    setupBulkInfo();
-    setupProductOptions();
-    setupAdditionalProducts();
-    setupInfoWrappers();
-    setupInfoWrapperInteractions();
-    setupSelectAllCheckboxes();
-    setupShowMoreButtons();
+            }, 200);
+        });
 
-    // Create header divs
-    createHeaderDiv("pa_height", "Height", createHeightContent());
-    createHeaderDiv("pa_length", "Length", createLengthContent());
-    createHeaderDiv("pa_hole-size", "Hole Size", createHoleSizeContent());
-    createHeaderDiv("gauge-wire-diameter", "Wire Diameter", createWireDiameterContent());
-    createHeaderDiv("pa_grade", "Grade", createGradeContent());
-}
+        // Initialize page elements
+        updateCartButtonText();
+        setupBulkInfoTable();
+        setupBulkInfo();
+        setupProductOptions();
+        setupAdditionalProducts();
+        setupInfoWrappers();
+        setupInfoWrapperInteractions();
+        setupSelectAllCheckboxes();
+        setupShowMoreButtons();
+
+        // Create header divs
+        createHeaderDiv("pa_height", "Height", createHeightContent());
+        createHeaderDiv("pa_length", "Length", createLengthContent());
+        createHeaderDiv("pa_hole-size", "Hole Size", createHoleSizeContent());
+        createHeaderDiv("gauge-wire-diameter", "Wire Diameter", createWireDiameterContent());
+        createHeaderDiv("pa_grade", "Grade", createGradeContent());
+    }
 
     function createHeightContent() {
         return `
